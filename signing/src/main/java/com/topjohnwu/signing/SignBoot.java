@@ -29,6 +29,16 @@ import java.security.cert.X509Certificate;
 import java.util.Arrays;
 
 public class SignBoot {
+    /**
+     * Offset of recovery DTBO length in a boot image header of version greater than
+     * or equal to 1.
+     */
+    private static final int BOOT_IMAGE_HEADER_V1_RECOVERY_DTBO_SIZE_OFFSET = 1632;
+    /**
+     * Offset of DTB length in a boot image header of version greater than
+     * or equal to 2.
+     */
+    private static final int BOOT_IMAGE_HEADER_V2_DTB_SIZE_OFFSET = 1648;
 
     private static class PushBackRWStream extends FilterInputStream {
         private OutputStream out;
