@@ -218,9 +218,6 @@ def build_binary(args):
                 with open(bin_file, 'rb') as src:
                     binary_dump(src, out, 'magisk_xz')
 
-    if 'busybox' in args.target:
-        run_ndk_build('B_BB=1')
-
     if 'magiskinit' in args.target:
         if not os.path.exists(os.path.join('native', 'out', 'x86', 'binaries_arch.h')):
             error('Build "magisk" before building "magiskinit"')
@@ -234,6 +231,9 @@ def build_binary(args):
 
     if 'magiskboot' in args.target:
         run_ndk_build('B_BOOT=1')
+
+    if 'busybox' in args.target:
+        run_ndk_build('B_BB=1')
 
     if 'test' in args.target:
         run_ndk_build('B_TEST=1 B_64BIT=1')
@@ -283,12 +283,11 @@ def build_snet(args):
         error('Build snet extention failed!')
     source = os.path.join('snet', 'build', 'outputs', 'apk',
                           'release', 'snet-release-unsigned.apk')
-    target = os.path.join(config['outdir'], 'snet.apk')
-    # Re-compress the whole APK for smaller size
+    target = os.path.join(config['outdir'], 'snet.jar')
+    # Extract classes.dex
     with zipfile.ZipFile(target, 'w', compression=zipfile.ZIP_DEFLATED, allowZip64=False) as zout:
         with zipfile.ZipFile(source) as zin:
-            for item in zin.infolist():
-                zout.writestr(item.filename, zin.read(item))
+            zout.writestr('classes.dex', zin.read('classes.dex'))
     rm(source)
     header('Output: ' + target)
 

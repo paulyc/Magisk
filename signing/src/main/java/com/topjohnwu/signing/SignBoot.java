@@ -40,6 +40,9 @@ public class SignBoot {
      */
     private static final int BOOT_IMAGE_HEADER_V2_DTB_SIZE_OFFSET = 1648;
 
+    private static final int BOOT_IMAGE_HEADER_V1_RECOVERY_DTBO_SIZE_OFFSET = 1632;
+    private static final int BOOT_IMAGE_HEADER_V2_DTB_SIZE_OFFSET = 1648;
+
     private static class PushBackRWStream extends FilterInputStream {
         private OutputStream out;
         private int pos = 0;
@@ -209,8 +212,6 @@ public class SignBoot {
         private DEROctetString signature;
         private PublicKey publicKey;
         private static final int FORMAT_VERSION = 1;
-        private static final int BOOT_IMAGE_HEADER_V1_RECOVERY_DTBO_SIZE_OFFSET = 1632;
-        private static final int BOOT_IMAGE_HEADER_V2_DTB_SIZE_OFFSET = 1648;
 
         /**
          * Initializes the object for signing an image file

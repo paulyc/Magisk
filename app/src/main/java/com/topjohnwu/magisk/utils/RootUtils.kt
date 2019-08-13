@@ -7,6 +7,8 @@ import android.net.Uri
 import com.topjohnwu.magisk.Const
 import com.topjohnwu.magisk.Info
 import com.topjohnwu.magisk.R
+import com.topjohnwu.magisk.extensions.rawResource
+import com.topjohnwu.magisk.extensions.toShellCmd
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ShellUtils
 import com.topjohnwu.superuser.io.SuFile
@@ -151,7 +153,6 @@ class RootUtils : Shell.Initializer() {
 
     companion object {
 
-        @JvmStatic
         fun rmAndLaunch(rm: String, component: ComponentName) {
             Shell.su("(rm_launch $rm ${component.flattenToString()})").exec()
         }
